@@ -1,0 +1,24 @@
+{
+  "name": "codingame-utils",
+  "version": "1.0.0",
+  "description": "Utility functions for Codingame",
+  "scripts": {
+    "test": "**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://hgwood@github.com/hgwood/codingame-utils.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hgwood/codingame-utils/issues"
+  },
+  "homepage": "https://github.com/hgwood/codingame-utils#readme",
+  "devDependencies": {
+    "eslint": "^3.11.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "tape": "^4.6.3"
+  }
+}
