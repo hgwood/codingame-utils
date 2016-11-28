@@ -36,7 +36,7 @@ tape('normalize returns a vector of length 1', t => {
   t.end()
 })
 
-tape('normalize does not change the direction of a vector', t => {
+tape('normalize does not change the direction of the vector', t => {
   const input = {x: 4, y: 7}
   const actual = vector.normalize(input)
   t.equal(Math.atan(actual.y / actual.x), Math.atan(input.y / input.x))
