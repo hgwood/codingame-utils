@@ -1,6 +1,6 @@
 const {memoize} = require('./functions')
 
-module.exports = {minBy, maxBy}
+module.exports = {minBy, maxBy, prop}
 
 /**
  * @param {function} selector function by which to order values
@@ -28,4 +28,11 @@ function maxBy (selector) {
       ? item
       : currentMinItem
   }
+}
+
+/**
+ * @example [{a: 1}, {a: 2}].map(prop('a')) // [1, 2]
+ */
+function prop (propName) {
+  return obj => obj[propName]
 }
