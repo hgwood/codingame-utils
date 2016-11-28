@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Utility functions for Codingame",
   "scripts": {
-    "test": "**/*.test.js"
+    "test": "tape **/*.test.js"
   },
   "repository": {
     "type": "git",
