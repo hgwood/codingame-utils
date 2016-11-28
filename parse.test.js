@@ -9,6 +9,14 @@ tape('entity example', t => {
   t.end()
 })
 
+tape('entity accepts non-numbers as strings', t => {
+  t.deepEqual(
+    parse.entity('1 hello 3', 'a', 'b', 'c'),
+    {a: 1, b: 'hello', c: 3}
+  )
+  t.end()
+})
+
 tape('entities example', t => {
   const readlineIter = ['2', '1', '2'][Symbol.iterator]()
   const readline = () => readlineIter.next().value

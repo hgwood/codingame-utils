@@ -9,7 +9,7 @@ function entities (readline, ...keys) {
 
 function entity (strValue, ...keys) {
   assert.type('string', strValue)
-  return strValue.split(' ').map(Number).reduce(toObject(...keys), {})
+  return strValue.split(' ').map(numberOrString).reduce(toObject(...keys), {})
 }
 
 function toObject (...keys) {
