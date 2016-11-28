@@ -7,7 +7,8 @@ module.exports = {
   scale: mult,
   flip: self => mult(self, -1),
   length,
-  clamp
+  clamp,
+  normalize
 }
 
 function add (self, other) {
@@ -31,4 +32,9 @@ function clamp (self, topLeft, bottomRight) {
     x: Math.min(bottomRight.x, Math.max(topLeft.x, self.x)),
     y: Math.min(bottomRight.y, Math.max(topLeft.y, self.y))
   }
+}
+
+function normalize (self) {
+  const selfLength = length(self)
+  return {x: self.x / selfLength, y: self.y / selfLength}
 }
