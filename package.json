@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Utility functions for Codingame",
   "scripts": {
-    "test": "tape **/*.test.js"
+    "test": "tape **/*.test.js",
+    "build": "webpack --display-modules"
   },
   "repository": {
     "type": "git",
@@ -15,10 +16,14 @@
   },
   "homepage": "https://github.com/hgwood/codingame-utils#readme",
   "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-latest": "^6.16.0",
     "eslint": "^3.11.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "webpack": "^1.13.3"
   }
 }
