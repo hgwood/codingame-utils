@@ -30,3 +30,8 @@ tape('maxBy uses the iteratee to compare values', t => {
   t.equal([1, 2, 3].reduce(collections.maxBy(x => 1 / x)), 1)
   t.end()
 })
+
+tape('prop returns values of given property', t => {
+  t.deepEqual([{a: 1}, {a: 2}].map(collections.prop('a')), [1, 2])
+  t.end()
+})
