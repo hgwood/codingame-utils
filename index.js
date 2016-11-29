@@ -1,8 +1,8 @@
 module.exports = {
-  assert: require('./assert'),
-  collections: require('./collections'),
-  functions: require('./functions'),
-  parse: require('./parse'),
-  vector: require('./vector'),
-  fantasticBits: require('./fantastic-bits')
+  assert: require('./src/assert'),
+  collections: require('./src/collections'),
+  functions: require('./src/functions'),
+  parse: require('./src/parse'),
+  vector: require('./src/vector'),
+  fantasticBits: require('./src/fantastic-bits')
 }

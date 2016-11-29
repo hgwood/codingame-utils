@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "description": "Utility functions for Codingame",
   "scripts": {
-    "test": "tape *.test.js \"!(node_modules)/*.test.js\"",
+    "test": "tape ./src/{**/,}*.test.js",
     "build": "webpack --display-modules",
     "preversion": "npm test",
     "version": "npm run build && git add -A -f ./dist"
