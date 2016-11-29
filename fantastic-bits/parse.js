@@ -25,6 +25,7 @@ function turnInfo (readline) {
       if (entity.isBall) entities.balls.push(entity)
       if (entity.isSnaffle) entities.snaffles.push(entity)
       if (entity.isBludger) entities.bludgers.push(entity)
+      return entities
     }, {
       all: [],
       players: [],
