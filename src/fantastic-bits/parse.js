@@ -15,7 +15,9 @@ function turnInfo (readline) {
     }))
     .map(entity => Object.assign(entity, {
       isPlayer: entity.isWizard || entity.isOpponent,
-      isBall: entity.isSnaffle || entity.isBludger
+      isBall: entity.isSnaffle || entity.isBludger,
+      maxThrust: entity.isWizard ? 150 : undefined,
+      maxThrowingForce: entity.isWizard ? 500 : undefined
     }))
     .reduce((entities, entity) => {
       entities.all.push(entity)
