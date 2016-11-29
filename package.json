@@ -1,6 +1,6 @@
 {
   "name": "codingame-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utility functions for Codingame",
   "scripts": {
     "test": "tape *.test.js \"!(node_modules)/*.test.js\"",
