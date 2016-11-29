@@ -1,10 +1,12 @@
 {
   "name": "codingame-utils",
-  "version": "1.0.0",
+  "version": "1.0.0-pre",
   "description": "Utility functions for Codingame",
   "scripts": {
     "test": "tape **/*.test.js",
-    "build": "webpack --display-modules"
+    "build": "webpack --display-modules",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A ./dist"
   },
   "repository": {
     "type": "git",
