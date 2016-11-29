@@ -5,8 +5,9 @@
   "scripts": {
     "test": "tape ./src/{**/,}*.test.js",
     "build": "webpack --display-modules",
+    "doc": "jsdoc --destination ./doc --recurse ./src ",
     "preversion": "npm test",
-    "version": "npm run build && git add -A -f ./dist"
+    "version": "npm run build && git add -A -f ./dist ./doc"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
+    "jsdoc": "^3.4.3",
     "tape": "^4.6.3",
     "webpack": "^1.13.3"
   }
