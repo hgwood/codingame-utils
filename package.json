@@ -5,9 +5,9 @@
   "scripts": {
     "test": "tape ./src/{**/,}*.test.js",
     "build": "webpack --display-modules",
-    "doc": "jsdoc --destination ./doc --recurse ./src ",
+    "docs": "jsdoc --destination ./docs --recurse ./src",
     "preversion": "npm test",
-    "version": "npm run build && git add -A -f ./dist ./doc"
+    "version": "npm run build && npm run docs && git add -A -f ./dist ./docs"
   },
   "repository": {
     "type": "git",
