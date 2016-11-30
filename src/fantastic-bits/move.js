@@ -1,5 +1,8 @@
 const {normalize, between, scale, add} = require('../vector')
 
+/**
+ * @module fantastic-bits/move
+ */
 module.exports = {
   step,
   nextVelocity,

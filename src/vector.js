@@ -1,3 +1,6 @@
+/**
+ * @module vector
+ */
 module.exports = {
   add,
   relativeTo: add,

@@ -1,5 +1,8 @@
 const parse = require('../parse')
 
+/**
+ * @module fantastic-bits/parse
+ */
 module.exports = {turnInfo}
 
 function turnInfo (readline) {

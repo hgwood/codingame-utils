@@ -1,5 +1,8 @@
 const {memoize} = require('./functions')
 
+/**
+ * @module collections
+ */
 module.exports = {minBy, maxBy, prop}
 
 /**
