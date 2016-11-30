@@ -82,6 +82,9 @@ var utils =
 
 	const {memoize} = __webpack_require__(3)
 
+	/**
+	 * @module collections
+	 */
 	module.exports = {minBy, maxBy, prop}
 
 	/**
@@ -124,6 +127,9 @@ var utils =
 /* 3 */
 /***/ function(module, exports) {
 
+	/**
+	 * @module functions
+	 */
 	module.exports = {tap, memoize, compose, flow}
 
 	function tap (value, fn) {
@@ -136,10 +142,20 @@ var utils =
 	  return x => cache.get(x) || tap(fn(x), r => cache.set(x, r))
 	}
 
+	/**
+	 * Composes functions from right to left.
+	 * @param {...functions} fns functions to compose
+	 * @example compose(x => x + 1, x => x * 2)(3) // 7
+	 */
 	function compose (...fns) {
 	  return flow(...fns.reverse())
 	}
 
+	/**
+	 * Composes functions from left to right.
+	 * @param {...functions} fns functions to compose
+	 * @example flow(x => x + 1, x => x * 2)(3) // 8
+	 */
 	function flow (...fns) {
 	  return x => fns.reduce((result, fn) => fn(result), x)
 	}
@@ -151,13 +167,34 @@ var utils =
 
 	const assert = __webpack_require__(1)
 
+	/**
+	 * @module parse
+	 */
 	module.exports = {entities, entity, numberOrString}
 
+	/**
+	 * Calls {@link entity} as many times as instructed by the first value
+	 * returned by readline.
+	 *
+	 * @param {function} readline a function that produces strings; typically the
+	 * builtin readline from CodinGame
+	 * @param {...string} keys keys to be used by {@link entity}
+	 */
 	function entities (readline, ...keys) {
 	  const n = assert.notNaN(Number(readline()))
 	  return Array(n).fill(0).map(() => entity(readline(), ...keys))
 	}
 
+	/**
+	 * Parses a line of space-separated values then associates each value with the
+	 * given keys, in order, into an object, which is returned. If a word can be
+	 * parsed into a number, it is.
+	 *
+	 * @param {string} strValue a line of space-separated values
+	 * @param {...string} keys keys of the resulting object
+	 *
+	 * @example entity('1 2 c', 'a', 'b', 'c') // {a: 1, b: 2, c: 'c'}
+	 */
 	function entity (strValue, ...keys) {
 	  assert.type('string', strValue)
 	  return strValue.split(' ').map(numberOrString).reduce(toObject(...keys), {})
@@ -176,6 +213,9 @@ var utils =
 /* 5 */
 /***/ function(module, exports) {
 
+	/**
+	 * @module vector
+	 */
 	module.exports = {
 	  add,
 	  relativeTo: add,
@@ -223,17 +263,32 @@ var utils =
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
-	  move: __webpack_require__(7),
-	  parse: __webpack_require__(8)
+	  arena: __webpack_require__(7),
+	  move: __webpack_require__(8),
+	  parse: __webpack_require__(9)
 	}
 
 
 /***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  topLeft: {x: 0, y: 0},
+	  bottomRight: {x: 16000, y: 7500},
+	  target: teamId => [{x: 16000, y: 3750}, {x: 0, y: 3750}][teamId]
+	}
+
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const {normalize, between, scale, add} = __webpack_require__(5)
 
+	/**
+	 * @module fantastic-bits/move
+	 */
 	module.exports = {
 	  step,
 	  nextVelocity,
@@ -308,11 +363,14 @@ var utils =
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const parse = __webpack_require__(4)
 
+	/**
+	 * @module fantastic-bits/parse
+	 */
 	module.exports = {turnInfo}
 
 	function turnInfo (readline) {
@@ -328,7 +386,9 @@ var utils =
 	    }))
 	    .map(entity => Object.assign(entity, {
 	      isPlayer: entity.isWizard || entity.isOpponent,
-	      isBall: entity.isSnaffle || entity.isBludger
+	      isBall: entity.isSnaffle || entity.isBludger,
+	      maxThrust: entity.isWizard ? 150 : undefined,
+	      maxThrowingForce: entity.isWizard ? 500 : undefined
 	    }))
 	    .reduce((entities, entity) => {
 	      entities.all.push(entity)

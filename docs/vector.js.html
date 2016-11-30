@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: vector.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,61 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: vector.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module vector
+ */
+module.exports = {
+  add,
+  relativeTo: add,
+  sub,
+  between: sub,
+  mult,
+  scale: mult,
+  flip: self => mult(self, -1),
+  length,
+  clamp,
+  normalize
+}
 
+function add (self, other) {
+  return {x: self.x + other.x, y: self.y + other.y}
+}
 
-    <h3> </h3>
+function sub (self, other) {
+  return {x: other.x - self.x, y: other.y - self.y}
+}
 
+function mult (self, n) {
+  return {x: n * self.x, y: n * self.y}
+}
 
+function length (self) {
+  return Math.hypot(self.x, self.y)
+}
 
+function clamp (self, topLeft, bottomRight) {
+  return {
+    x: Math.min(bottomRight.x, Math.max(topLeft.x, self.x)),
+    y: Math.min(bottomRight.y, Math.max(topLeft.y, self.y))
+  }
+}
 
-
-
-
-
-
-
-    
-
-
-
-
-
+function normalize (self) {
+  const selfLength = length(self)
+  return {x: self.x / selfLength, y: self.y / selfLength}
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
