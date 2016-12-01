@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: functions.js</title>
+    <title>JSDoc: Source: fantastic-bits/arena.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: functions.js</h1>
+    <h1 class="page-title">Source: fantastic-bits/arena.js</h1>
 
     
 
@@ -27,36 +27,22 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * @module functions
+ * @module fantastic-bits/arena
  */
-module.exports = {tap, memoize, compose, flow}
-
-function tap (value, fn) {
-  fn(value)
-  return value
-}
-
-function memoize (fn) {
-  const cache = new Map()
-  return x => cache.get(x) || tap(fn(x), r => cache.set(x, r))
-}
-
-/**
- * Composes functions from right to left.
- * @param {...functions} fns functions to compose
- * @example compose(x => x + 1, x => x * 2)(3) // 7
- */
-function compose (...fns) {
-  return flow(...fns.reverse())
-}
-
-/**
- * Composes functions from left to right.
- * @param {...functions} fns functions to compose
- * @example flow(x => x + 1, x => x * 2)(3) // 8
- */
-function flow (...fns) {
-  return x => fns.reduce((result, fn) => fn(result), x)
+module.exports = {
+  /**
+   * Coordinates of the top left corner of the arena.
+   */
+  topLeft: {x: 0, y: 0},
+  /**
+   * Coordinates of the bottom right corner of the arena.
+   */
+  bottomRight: {x: 16000, y: 7500},
+  /**
+   * @returns the center of the goal you should put the ball in
+   * @param {number} teamId
+   */
+  target: teamId => [{x: 16000, y: 3750}, {x: 0, y: 3750}][teamId]
 }
 </code></pre>
         </article>

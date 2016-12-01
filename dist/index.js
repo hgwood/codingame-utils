@@ -211,10 +211,13 @@ var utils =
 
 /***/ },
 /* 5 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
+
+	const {minBy} = __webpack_require__(2)
 
 	/**
 	 * @module vector
+	 * @description 2D vector and point manipulation.
 	 */
 	module.exports = {
 	  add,
@@ -226,8 +229,8 @@ var utils =
 	  relativeTo: add,
 	  sub,
 	  /**
-	   * Same as {@link module:vector.sub|sub}. More readable to get a vector from
-	   * two points.
+	   * Same as {@link module:vector.sub|sub}. More readable to build a vector
+	   * from two points.
 	   * @function
 	   */
 	  between: sub,
@@ -242,6 +245,8 @@ var utils =
 	   */
 	  flip: self => mult(self, -1),
 	  length,
+	  distance,
+	  closest,
 	  clamp,
 	  normalize
 	}
@@ -292,6 +297,15 @@ var utils =
 	}
 
 	/**
+	 * @returns distance between two points.
+	 * @param {Vector} self
+	 * @param {Vector} other
+	 */
+	function distance (self, other) {
+	  return length(sub(self, other))
+	}
+
+	/**
 	 * Clamps the components of self using the components of two other vectors.
 	 * @static
 	 * @param {Vector} self
@@ -315,6 +329,16 @@ var utils =
 	  return {x: self.x / selfLength, y: self.y / selfLength}
 	}
 
+	/**
+	 * @static
+	 * @returns {Vector} the closest point to self among others
+	 * @param {Vector} self
+	 * @param {Vector[]} others
+	 */
+	function closest (self, others) {
+	  return others.reduce(minBy(other => distance(self, other)))
+	}
+
 
 /***/ },
 /* 6 */
@@ -323,7 +347,8 @@ var utils =
 	module.exports = {
 	  arena: __webpack_require__(7),
 	  move: __webpack_require__(8),
-	  parse: __webpack_require__(9)
+	  parse: __webpack_require__(9),
+	  quickStart: __webpack_require__(10)
 	}
 
 
@@ -331,9 +356,22 @@ var utils =
 /* 7 */
 /***/ function(module, exports) {
 
+	/**
+	 * @module fantastic-bits/arena
+	 */
 	module.exports = {
+	  /**
+	   * Coordinates of the top left corner of the arena.
+	   */
 	  topLeft: {x: 0, y: 0},
+	  /**
+	   * Coordinates of the bottom right corner of the arena.
+	   */
 	  bottomRight: {x: 16000, y: 7500},
+	  /**
+	   * @returns the center of the goal you should put the ball in
+	   * @param {number} teamId
+	   */
 	  target: teamId => [{x: 16000, y: 3750}, {x: 0, y: 3750}][teamId]
 	}
 
@@ -466,6 +504,36 @@ var utils =
 	      snaffles: [],
 	      bludgers: []
 	    })
+	}
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const arena = __webpack_require__(7)
+	const {closest} = __webpack_require__(5)
+
+	/**
+	 * @module fantastic-bits/quickStart
+	 */
+	/**
+	 * Implements a strategy capable of defeating bosses of the Wood league.
+	 * @param {number} teamId
+	 * @param {object} entities output from {@link module:fantastic-bits/parse.turnInfo}
+	 * @returns {string[][]} commands, each of which should be spread into print
+	 * @example quickStart(teamId, entities).forEach(command => print(...command))
+	 */
+	module.exports = function (teamId, entities) {
+	  return entities.wizards.map((wizard, index) => {
+	    if (wizard.hasSnaffle) {
+	      const {x, y} = arena.target(teamId)
+	      return ['THROW', x, y, wizard.maxThrowingForce]
+	    } else {
+	      const snaffle = closest(wizard, entities.snaffles)
+	      return ['MOVE', snaffle.x, snaffle.y, wizard.maxThrust]
+	    }
+	  })
 	}
 
 
