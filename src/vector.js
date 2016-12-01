@@ -1,5 +1,8 @@
+const {minBy} = require('./collections')
+
 /**
  * @module vector
+ * @description 2D vector and point manipulation.
  */
 module.exports = {
   add,
@@ -11,8 +14,8 @@ module.exports = {
   relativeTo: add,
   sub,
   /**
-   * Same as {@link module:vector.sub|sub}. More readable to get a vector from
-   * two points.
+   * Same as {@link module:vector.sub|sub}. More readable to build a vector
+   * from two points.
    * @function
    */
   between: sub,
@@ -27,6 +30,8 @@ module.exports = {
    */
   flip: self => mult(self, -1),
   length,
+  distance,
+  closest,
   clamp,
   normalize
 }
@@ -77,6 +82,15 @@ function length (self) {
 }
 
 /**
+ * @returns distance between two points.
+ * @param {Vector} self
+ * @param {Vector} other
+ */
+function distance (self, other) {
+  return length(sub(self, other))
+}
+
+/**
  * Clamps the components of self using the components of two other vectors.
  * @static
  * @param {Vector} self
@@ -98,4 +112,14 @@ function clamp (self, topLeft, bottomRight) {
 function normalize (self) {
   const selfLength = length(self)
   return {x: self.x / selfLength, y: self.y / selfLength}
+}
+
+/**
+ * @static
+ * @returns {Vector} the closest point to self among others
+ * @param {Vector} self
+ * @param {Vector[]} others
+ */
+function closest (self, others) {
+  return others.reduce(minBy(other => distance(self, other)))
 }
