@@ -22,6 +22,9 @@ function turnInfo (readline) {
       maxThrust: entity.isWizard ? 150 : undefined,
       maxThrowingForce: entity.isWizard ? 500 : undefined
     }))
+    .map(entity => Object.assign(entity, {
+      snaffle: entity.isWizard ? entities.find(other => other.x === entity.x && other.y === entity.y) : undefined
+    }))
     .reduce((entities, entity) => {
       entities.all.push(entity)
       if (entity.isPlayer) entities.players.push(entity)
